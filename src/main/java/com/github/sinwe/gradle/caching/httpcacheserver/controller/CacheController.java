@@ -31,7 +31,7 @@ public class CacheController {
     @PutMapping("/{key}")
     @ResponseStatus(ACCEPTED)
     void store(@PathVariable String key, @RequestBody byte[] payload) {
-        LOGGER.info("Storing {} -> {}", key, payload);
+        LOGGER.info("Storing {}", key);
         storage.put(key, payload);
     }
 

@@ -21,7 +21,6 @@ public class ChronicleMapConfig {
                 .constantKeySizeBySample("be55b029576c107a597a765e79be14a7")
                 .averageValueSize(500000)
                 .entries(100000)
-                .replication()
                 .createOrRecoverPersistedTo(cacheFile);
     }
 
