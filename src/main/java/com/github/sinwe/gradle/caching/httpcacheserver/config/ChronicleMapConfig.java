@@ -5,6 +5,7 @@ import net.openhft.chronicle.map.ChronicleMapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.annotation.Order;
 
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Configuration
+@Profile({"persisted"})
 public class ChronicleMapConfig {
     @Bean(destroyMethod = "close")
     @Order(Integer.MIN_VALUE)
