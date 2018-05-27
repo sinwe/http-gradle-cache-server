@@ -29,6 +29,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-devtools")
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("net.openhft:chronicle-map:3.15.1")
+    compile("com.hazelcast:hazelcast-client")
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('io.projectreactor:reactor-test')
 }
