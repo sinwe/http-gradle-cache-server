@@ -17,7 +17,7 @@ What it does:
 What it does not do:
 * No eviction strategy
 
-## In Memory Mode
+## In Memory Mode (Default)
 Store cache into memory. The total cache entry stored in the cache is limited by the heap allocated to JVM
 
 What it does:
