@@ -18,12 +18,4 @@ public class HttpCacheServerApplicationTests {
     @Test
     public void contextLoads() {
     }
-
-    @TestConfiguration
-    public static class MapConfig {
-        @Bean
-        public ConcurrentMap<String, byte[]> map() {
-            return new ConcurrentHashMap<>();
-        }
-    }
 }
