@@ -73,3 +73,5 @@ publishing {
         }
     }
 }
+
+afterReleaseBuild.dependsOn bintrayUpload
