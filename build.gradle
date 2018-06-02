@@ -48,8 +48,8 @@ ext.bintrayUsername = bintrayUser
 ext.bintrayKey = bintrayApiKey
 
 bintray {
-    user = "${ext.bintrayUsername}"
-    key = "${ext.bintrayKey}"
+    user = "$bintrayUsername"
+    key = "$bintrayKey"
     publication = ['MyPublication']
     configurations = ['archives']
     pkg {
