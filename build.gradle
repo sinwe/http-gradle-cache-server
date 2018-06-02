@@ -46,8 +46,6 @@ jar {
     version = "${project.version}"
 }
 
-ext.
-
 bintray {
     user = "${ext.bintrayUsername}"
     key = "${ext.bintrayKey}"
