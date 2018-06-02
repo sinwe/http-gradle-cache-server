@@ -3,8 +3,6 @@ buildscript {
         springBootVersion = '2.0.2.RELEASE'
         bintrayPluginVersion = '1.7.3'
         releasePluginVersion = '2.7.0'
-        bintrayUsername = bintrayUser
-        bintrayKey = bintrayApiKey
     }
     repositories {
         mavenCentral()
@@ -47,6 +45,9 @@ dependencies {
 jar {
     version = "${project.version}"
 }
+
+ext.bintrayUsername = hasProperty("bintrayUser") ? bintrayUser : System.getenv("ossrhUsername")
+ext.bintrayKey = hasProperty("bintrayApiKey") ? bintrayApiKey : System.getenv("ossrhPassword")
 
 bintray {
     user = "$bintrayUsername"
