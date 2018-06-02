@@ -40,6 +40,7 @@ Add the following in your `settings.gradle`:
             push = true
         }
     } 
+
 Note: the cache server above is using in-memory mode with replication.
 It is also configured to evict entries using LRU to avoid running out of memory.
 It is however having a quite big heap allocated to it.
