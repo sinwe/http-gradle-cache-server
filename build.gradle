@@ -2,8 +2,6 @@ buildscript {
     ext {
         springBootVersion = '2.0.2.RELEASE'
         bintrayPluginVersion = '1.7.3'
-        bintrayUsername = bintrayUser
-        bintrayKey = bintrayApiKey
     }
     repositories {
         mavenCentral()
@@ -45,6 +43,9 @@ dependencies {
 jar {
     version = "${project.version}"
 }
+
+ext.bintrayUsername = bintrayUser
+ext.bintrayKey = bintrayApiKey
 
 bintray {
     user = "${ext.bintrayUsername}"
