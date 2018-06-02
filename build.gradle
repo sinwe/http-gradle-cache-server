@@ -1,12 +1,16 @@
 buildscript {
     ext {
         springBootVersion = '2.0.2.RELEASE'
+        bintrayPluginVersion = '1.7.3'
+        bintrayUsername = bintrayUser
+        bintrayKey = bintrayApiKey
     }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayPluginVersion"
     }
 }
 
@@ -14,6 +18,9 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+apply plugin: 'java-library'
 
 group = 'com.github.sinwe.gradle.caching'
 version = '0.0.1-SNAPSHOT'
@@ -36,4 +43,32 @@ dependencies {
 
 jar {
     version = "${project.version}"
+}
+
+ext.
+
+bintray {
+    user = "${ext.bintrayUsername}"
+    key = "${ext.bintrayKey}"
+    publication = ['MyPublication']
+    configurations = ['archives']
+    pkg {
+        repo = 'sinwe-maven'
+        name = 'http-gradle-cache-server'
+        version {
+            name = "${project.version}"
+            released = new Date()
+        }
+    }
+}
+
+publishing {
+    publication {
+        MyPublication(MavenPublication) {
+            from components.java
+            groupId "${project.group}"
+            artifactId "${project.name}"
+            version "${project.version}"
+        }
+    }
 }
