@@ -1,6 +1,7 @@
 # Gradle HTTP Build Cache Server
 
 [![Build Status](https://travis-ci.org/sinwe/http-gradle-cache-server.svg?branch=master)](https://travis-ci.org/sinwe/http-gradle-cache-server)
+[![Download](https://api.bintray.com/packages/sinwe/sinwe-maven/http-gradle-cache-server/images/download.svg?version=0.0.1) ](https://bintray.com/sinwe/sinwe-maven/http-gradle-cache-server/0.0.1/link)
 
 This is an alternative Gradle build cache server.
 There are 2 mode that this cache server can be used:
