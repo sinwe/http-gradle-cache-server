@@ -27,7 +27,6 @@ apply plugin: 'java-library'
 apply plugin: 'net.researchgate.release'
 
 group = 'com.github.sinwe.gradle.caching'
-version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
