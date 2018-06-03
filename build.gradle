@@ -3,6 +3,7 @@ buildscript {
         springBootVersion = '2.0.2.RELEASE'
         bintrayPluginVersion = '1.7.3'
         releasePluginVersion = '2.7.0'
+        owaspPluginVersion = '3.2.1'
     }
     repositories {
         mavenCentral()
@@ -12,6 +13,7 @@ buildscript {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayPluginVersion"
         classpath "net.researchgate:gradle-release:$releasePluginVersion"
+        classpath "org.owasp:dependency-check-gradle:$owaspPluginVersion"
     }
 }
 
@@ -23,6 +25,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'java-library'
 apply plugin: 'net.researchgate.release'
+apply plugin: 'org.owasp.dependencycheck'
 
 group = 'com.github.sinwe.gradle.caching'
 sourceCompatibility = 1.8
