@@ -1,48 +1,56 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.2.RELEASE'
         bintrayPluginVersion = '1.7.3'
         releasePluginVersion = '2.7.0'
         owaspPluginVersion = '3.2.1'
+        springBootVersion = '2.0.2.RELEASE'
+        springFrameworkVersion = '5.0.6.RELEASE'
+        vertxVersion = '3.5.2'
     }
     repositories {
         mavenCentral()
         jcenter()
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayPluginVersion"
         classpath "net.researchgate:gradle-release:$releasePluginVersion"
         classpath "org.owasp:dependency-check-gradle:$owaspPluginVersion"
     }
 }
 
-apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
-apply plugin: 'java-library'
 apply plugin: 'net.researchgate.release'
 apply plugin: 'org.owasp.dependencycheck'
 
 group = 'com.github.sinwe.gradle.caching'
-sourceCompatibility = 1.8
 
-repositories {
-    mavenCentral()
+allprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+            jcenter()
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+
+    sourceCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
 }
 
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-webflux')
-    compile("org.springframework.boot:spring-boot-devtools")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("net.openhft:chronicle-map:3.15.1")
-    compile("com.hazelcast:hazelcast-client")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('io.projectreactor:reactor-test')
 }
 
 jar {

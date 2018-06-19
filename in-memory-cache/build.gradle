@@ -1,0 +1,17 @@
+buildscript {
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+    }
+}
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+dependencies {
+    compile group: 'io.vertx', name: 'vertx-core', version: "$vertxVersion"
+    compile("org.springframework:spring-context:$springFrameworkVersion")
+    compile("io.vertx:vertx-hazelcast:$vertxVersion")
+    compile("com.hazelcast:hazelcast-client")
+    compile("org.slf4j:slf4j-api")
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "io.vertx:vertx-unit:$vertxVersion"
+}

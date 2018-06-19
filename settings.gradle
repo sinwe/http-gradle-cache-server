@@ -1,5 +1,8 @@
 rootProject.name = 'http-cache-server'
 
+include "http-api"
+include "in-memory-cache"
+
 buildCache {
     local {
         enabled = false
