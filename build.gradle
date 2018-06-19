@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.2.RELEASE'
-        bintrayPluginVersion = '1.7.3'
+        springBootVersion = '2.0.3.RELEASE'
+        bintrayPluginVersion = '1.8.1'
         releasePluginVersion = '2.7.0'
         owaspPluginVersion = '3.2.1'
     }
