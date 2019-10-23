@@ -1,8 +1,4 @@
 language: java
 jdk: openjdk8
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
 script:
 - "./gradlew build --stacktrace --build-cache"
