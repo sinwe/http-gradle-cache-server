@@ -58,3 +58,9 @@ publishing {
         }
     }
 }
+
+release {
+    git {
+        requireBranch.set('master')
+    }
+}
