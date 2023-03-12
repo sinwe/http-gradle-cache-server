@@ -1,6 +1,6 @@
 # Gradle HTTP Build Cache Server
 
-[![Build Status](https://travis-ci.org/sinwe/http-gradle-cache-server.svg?branch=master)](https://travis-ci.org/sinwe/http-gradle-cache-server)
+[![Build Status](https://github.com/sinwe/http-gradle-cache-server/actions/workflows/gradle.yml/badge.svg)](https://github.com/sinwe/http-gradle-cache-server/actions/runs/4398313516)
 
 This is an alternative Gradle build cache server.
 There are 2 mode that this cache server can be used:
