@@ -1,7 +1,6 @@
 # Gradle HTTP Build Cache Server
 
 [![Build Status](https://travis-ci.org/sinwe/http-gradle-cache-server.svg?branch=master)](https://travis-ci.org/sinwe/http-gradle-cache-server)
-[![Download](https://api.bintray.com/packages/sinwe/sinwe-maven/http-gradle-cache-server/images/download.svg?version=0.0.1) ](https://bintray.com/sinwe/sinwe-maven/http-gradle-cache-server/0.0.1/link)
 [![Code Quality: Java](https://img.shields.io/lgtm/grade/java/g/sinwe/http-gradle-cache-server.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sinwe/http-gradle-cache-server/context:java)
 [![Total Alerts](https://img.shields.io/lgtm/alerts/g/sinwe/http-gradle-cache-server.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sinwe/http-gradle-cache-server/alerts)
 
