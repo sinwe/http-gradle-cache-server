@@ -1,8 +1,6 @@
 # Gradle HTTP Build Cache Server
 
 [![Build Status](https://travis-ci.org/sinwe/http-gradle-cache-server.svg?branch=master)](https://travis-ci.org/sinwe/http-gradle-cache-server)
-[![Code Quality: Java](https://img.shields.io/lgtm/grade/java/g/sinwe/http-gradle-cache-server.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sinwe/http-gradle-cache-server/context:java)
-[![Total Alerts](https://img.shields.io/lgtm/alerts/g/sinwe/http-gradle-cache-server.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sinwe/http-gradle-cache-server/alerts)
 
 This is an alternative Gradle build cache server.
 There are 2 mode that this cache server can be used:
