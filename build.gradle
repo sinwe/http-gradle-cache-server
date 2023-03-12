@@ -1,34 +1,33 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.3.RELEASE'
-        bintrayPluginVersion = '1.8.1'
-        releasePluginVersion = '2.7.0'
+        springBootVersion = '3.0.4'
+        releasePluginVersion = '3.0.2'
         owaspPluginVersion = '3.2.1'
     }
     repositories {
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintrayPluginVersion"
         classpath "net.researchgate:gradle-release:$releasePluginVersion"
         classpath "org.owasp:dependency-check-gradle:$owaspPluginVersion"
     }
+}
+
+plugins {
+    id 'net.researchgate.release' version "$releasePluginVersion"
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 apply plugin: 'java-library'
-apply plugin: 'net.researchgate.release'
 apply plugin: 'org.owasp.dependencycheck'
 
 group = 'com.github.sinwe.gradle.caching'
-sourceCompatibility = 1.8
+sourceCompatibility = 17
 
 repositories {
     mavenCentral()
@@ -36,35 +35,17 @@ repositories {
 
 
 dependencies {
-    compile('org.springframework.boot:spring-boot-starter-webflux')
-    compile("org.springframework.boot:spring-boot-devtools")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("net.openhft:chronicle-map:3.15.1")
-    compile("com.hazelcast:hazelcast-client")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-    testCompile('io.projectreactor:reactor-test')
+    implementation('org.springframework.boot:spring-boot-starter-webflux')
+    implementation("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("net.openhft:chronicle-map:3.15.1")
+    implementation("com.hazelcast:hazelcast")
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('io.projectreactor:reactor-test')
 }
 
 jar {
     version = "${project.version}"
-}
-
-ext.bintrayUsername = hasProperty("bintrayUser") ? bintrayUser : System.getenv("ossrhUsername")
-ext.bintrayKey = hasProperty("bintrayApiKey") ? bintrayApiKey : System.getenv("ossrhPassword")
-
-bintray {
-    user = "$bintrayUsername"
-    key = "$bintrayKey"
-    publications = ['MyPublication']
-    configurations = ['archives']
-    pkg {
-        repo = 'sinwe-maven'
-        name = 'http-gradle-cache-server'
-        version {
-            name = "${project.version}"
-            released = new Date()
-        }
-    }
 }
 
 publishing {
@@ -77,5 +58,3 @@ publishing {
         }
     }
 }
-
-afterReleaseBuild.dependsOn bintrayUpload
