@@ -16,6 +16,8 @@ buildscript {
 
 plugins {
     id 'net.researchgate.release' version "$releasePluginVersion"
+    id 'java'
+    id 'org.springframework.boot' version "$springBootVersion"
 }
 
 apply plugin: 'java'
@@ -27,7 +29,10 @@ apply plugin: 'java-library'
 apply plugin: 'org.owasp.dependencycheck'
 
 group = 'com.github.sinwe.gradle.caching'
-sourceCompatibility = 17
+java {
+    sourceCompatibility = "17"
+    targetCompatibility = "17"
+}
 
 repositories {
     mavenCentral()
