@@ -1,6 +1,7 @@
 # Gradle HTTP Build Cache Server
 
 [![Build Status](https://github.com/sinwe/http-gradle-cache-server/actions/workflows/gradle.yml/badge.svg)](https://github.com/sinwe/http-gradle-cache-server/actions/runs/4398313516)
+[![CodeQL](https://github.com/sinwe/http-gradle-cache-server/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sinwe/http-gradle-cache-server/actions/workflows/codeql-analysis.yml)
 
 This is an alternative Gradle build cache server.
 There are 2 mode that this cache server can be used:
