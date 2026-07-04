@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '3.0.4'
+        springBootVersion = '4.1.0'
         releasePluginVersion = '3.0.2'
         owaspPluginVersion = '3.2.1'
     }
@@ -29,37 +29,60 @@ apply plugin: 'java-library'
 apply plugin: 'org.owasp.dependencycheck'
 
 group = 'com.github.sinwe.gradle.caching'
+
 java {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    dependencies {
+        // Override Spring Boot's managed logback version, which is vulnerable to expression injection
+        dependency 'ch.qos.logback:logback-core:1.5.36'
+        dependency 'ch.qos.logback:logback-classic:1.5.36'
+    }
+}
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("net.openhft:chronicle-map:3.15.1")
-    implementation("com.hazelcast:hazelcast")
+    implementation("com.hazelcast:hazelcast:5.7.0")
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-webtestclient')
     testImplementation('io.projectreactor:reactor-test')
+
+    constraints {
+        // net.openhft:chronicle-map pulls these in transitively at old, vulnerable versions
+        implementation('com.thoughtworks.xstream:xstream:1.4.21') {
+            because 'chronicle-map depends on a vulnerable xstream release'
+        }
+        implementation('org.codehaus.jettison:jettison:1.5.6') {
+            because 'chronicle-map depends on a vulnerable jettison release'
+        }
+    }
 }
 
 jar {
     version = "${project.version}"
 }
 
+test {
+    useJUnitPlatform()
+}
+
 publishing {
     publications {
         MyPublication(MavenPublication) {
             from components.java
-            groupId "${project.group}"
-            artifactId "${project.name}"
-            version "${project.version}"
+            groupId = "${project.group}"
+            artifactId = "${project.name}"
+            version = "${project.version}"
         }
     }
 }
