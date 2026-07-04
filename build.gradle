@@ -52,31 +52,35 @@ dependencyCheck {
         // Without a key the NVD API rate-limits almost immediately, failing the analysis
         apiKey = System.getenv('NVD_API_KEY')
     }
+    suppressionFile = 'dependency-check-suppressions.xml'
 }
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-webflux')
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("net.openhft:chronicle-map:3.15.1")
+    implementation("net.openhft:chronicle-map:2026.1")
     implementation("com.hazelcast:hazelcast:5.7.0")
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.boot:spring-boot-webtestclient')
     testImplementation('io.projectreactor:reactor-test')
-
-    constraints {
-        // net.openhft:chronicle-map pulls these in transitively at old, vulnerable versions
-        implementation('com.thoughtworks.xstream:xstream:1.4.21') {
-            because 'chronicle-map depends on a vulnerable xstream release'
-        }
-        implementation('org.codehaus.jettison:jettison:1.5.6') {
-            because 'chronicle-map depends on a vulnerable jettison release'
-        }
-    }
 }
 
 jar {
     version = "${project.version}"
+}
+
+bootJar {
+    // Chronicle Map's on-the-fly value-class generation needs access to internal JDK APIs on
+    // Java 11+ (see https://chronicle.software/chronicle-support-java-17). These manifest
+    // attributes are honoured by the JVM for any jar launched via `java -jar`, so the
+    // "persisted" profile works without callers having to pass these flags themselves.
+    manifest {
+        attributes(
+                'Add-Opens'  : 'java.base/java.lang java.base/java.lang.reflect java.base/java.io java.base/java.util jdk.compiler/com.sun.tools.javac',
+                'Add-Exports': 'java.base/jdk.internal.ref java.base/sun.nio.ch jdk.unsupported/sun.misc jdk.compiler/com.sun.tools.javac.file'
+        )
+    }
 }
 
 test {

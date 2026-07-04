@@ -5,8 +5,8 @@ import net.openhft.chronicle.map.ChronicleMapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.annotation.Order;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,15 +15,18 @@ import java.io.IOException;
 @Configuration
 @Profile({"persisted"})
 public class ChronicleMapConfig {
+    // @Primary breaks the tie with AutoConcurrentMapConfiguration's fallback bean, which its
+    // @ConditionalOnMissingBean can't reliably suppress - see the comment there.
     @Bean(destroyMethod = "close")
-    @Order(Integer.MIN_VALUE)
+    @Primary
     public ChronicleMap<String, byte[]> chronicleMap(@Autowired File cacheFile) throws IOException {
-        return ChronicleMapBuilder.of(String.class, byte[].class)
+        ChronicleMapBuilder<String, byte[]> builder = ChronicleMapBuilder.of(String.class, byte[].class)
                 .name("gradle-build-cache")
                 .constantKeySizeBySample("be55b029576c107a597a765e79be14a7")
                 .averageValueSize(500000)
-                .entries(100000)
-                .createOrRecoverPersistedTo(cacheFile);
+                .entries(100000);
+        // createOrRecoverPersistedTo was removed in favor of explicit create/recover calls
+        return cacheFile.exists() ? builder.recoverPersistedTo(cacheFile, true) : builder.createPersistedTo(cacheFile);
     }
 
     @Bean

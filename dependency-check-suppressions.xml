@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+
+    <suppress>
+        <notes><![CDATA[
+        False positive: CVE-2022-31691 is a Spring Tools 4 (Eclipse/VSCode IDE extension) YAML-editor RCE
+        that abuses SnakeYAML. It has nothing to do with the spring-boot-devtools runtime library - NVD's
+        CPE dictionary just conflates "spring_tools"/"spring_boot_tools" with this artifact.
+        ]]></notes>
+        <filePath regex="true">.*spring-boot-devtools-.*\.jar</filePath>
+        <cve>CVE-2022-31691</cve>
+    </suppress>
+
+    <suppress>
+        <notes><![CDATA[
+        Accepted risk: Hazelcast shades a real, vulnerable copy of Jackson (both the legacy
+        com.fasterxml.jackson and new tools.jackson lines) internally under com.hazelcast.shaded.* for its
+        own JSON-value/query features. Every one of these CVEs requires the application to deserialize
+        attacker-controlled JSON via ObjectMapper.readValue with specific annotation setups. This project's
+        CacheController only handles raw byte[] bodies and never touches Jackson, and the Hazelcast profile
+        here only ever stores IMap<String, byte[]> - never HazelcastJsonValue or any JSON-query feature - so
+        Hazelcast's internal shaded Jackson is never invoked. Revisit if this project starts using
+        Hazelcast's JSON-aware APIs.
+        ]]></notes>
+        <filePath regex="true">.*hazelcast-.*\.jar/META-INF/maven/.*jackson.*/jackson-databind/pom\.xml</filePath>
+        <cve>CVE-2026-54512</cve>
+        <cve>CVE-2026-54513</cve>
+        <cve>CVE-2026-54514</cve>
+        <cve>CVE-2026-54515</cve>
+        <cve>CVE-2026-54516</cve>
+        <cve>CVE-2026-54517</cve>
+        <cve>CVE-2026-54518</cve>
+    </suppress>
+
+</suppressions>

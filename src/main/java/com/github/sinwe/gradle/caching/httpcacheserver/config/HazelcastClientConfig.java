@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 
 @Configuration
@@ -23,7 +24,10 @@ public class HazelcastClientConfig {
         return config;
     }
 
+    // @Primary breaks the tie with AutoConcurrentMapConfiguration's fallback bean, which its
+    // @ConditionalOnMissingBean can't reliably suppress - see the comment there.
     @Bean
+    @Primary
     public IMap<String, byte[]> concurrentMap(@Autowired HazelcastInstance hazelcastInstance) {
         return hazelcastInstance.getMap("gradle-build-cache");
     }
