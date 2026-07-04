@@ -24,11 +24,12 @@ public class HazelcastClientConfig {
         return config;
     }
 
-    // @Primary breaks the tie with AutoConcurrentMapConfiguration's fallback bean, which its
-    // @ConditionalOnMissingBean can't reliably suppress - see the comment there.
+    // Named differently from AutoConcurrentMapConfiguration.concurrentMap() to avoid a bean name
+    // collision (Spring infers the name from the method name). @Primary breaks the resulting type
+    // ambiguity in CacheController's autowiring - see the comment on the fallback bean.
     @Bean
     @Primary
-    public IMap<String, byte[]> concurrentMap(@Autowired HazelcastInstance hazelcastInstance) {
+    public IMap<String, byte[]> hazelcastConcurrentMap(@Autowired HazelcastInstance hazelcastInstance) {
         return hazelcastInstance.getMap("gradle-build-cache");
     }
 }

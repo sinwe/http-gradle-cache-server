@@ -60,6 +60,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("net.openhft:chronicle-map:2026.1")
+    // Provides the HazelcastInstance auto-configuration that builds a client from ClientConfig
+    implementation("org.springframework.boot:spring-boot-starter-hazelcast")
     implementation("com.hazelcast:hazelcast:5.7.0")
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.springframework.boot:spring-boot-webtestclient')
