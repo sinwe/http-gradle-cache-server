@@ -32,3 +32,16 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
+    - name: Cache OWASP dependency-check NVD data
+      uses: actions/cache@v4
+      with:
+        path: ~/.gradle/dependency-check-data
+        key: dependency-check-data-${{ github.run_id }}
+        restore-keys: |
+          dependency-check-data-
+    - name: OWASP dependency-check
+      env:
+        NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: dependencyCheckAnalyze

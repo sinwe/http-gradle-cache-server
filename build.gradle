@@ -2,7 +2,8 @@ buildscript {
     ext {
         springBootVersion = '4.1.0'
         releasePluginVersion = '3.1.0'
-        owaspPluginVersion = '3.2.1'
+        // Only published on the Gradle Plugin Portal, not Maven Central - see plugins{} block below
+        owaspPluginVersion = '12.2.2'
     }
     repositories {
         mavenCentral()
@@ -10,7 +11,6 @@ buildscript {
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
         classpath "net.researchgate:gradle-release:$releasePluginVersion"
-        classpath "org.owasp:dependency-check-gradle:$owaspPluginVersion"
     }
 }
 
@@ -18,6 +18,7 @@ plugins {
     id 'net.researchgate.release' version "$releasePluginVersion"
     id 'java'
     id 'org.springframework.boot' version "$springBootVersion"
+    id 'org.owasp.dependencycheck' version "$owaspPluginVersion"
 }
 
 apply plugin: 'java'
@@ -26,7 +27,6 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'maven-publish'
 apply plugin: 'java-library'
-apply plugin: 'org.owasp.dependencycheck'
 
 group = 'com.github.sinwe.gradle.caching'
 
@@ -44,6 +44,13 @@ dependencyManagement {
         // Override Spring Boot's managed logback version, which is vulnerable to expression injection
         dependency 'ch.qos.logback:logback-core:1.5.36'
         dependency 'ch.qos.logback:logback-classic:1.5.36'
+    }
+}
+
+dependencyCheck {
+    nvd {
+        // Without a key the NVD API rate-limits almost immediately, failing the analysis
+        apiKey = System.getenv('NVD_API_KEY')
     }
 }
 
