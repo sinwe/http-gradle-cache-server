@@ -29,8 +29,8 @@ Option for this mode:
 ## How to run
     $ java -jar http-cache-server-0.0.1.jar
     
-## Usage
-Point your Gradle build at a running instance of this server by adding the following to your `settings.gradle`:
+## Quick example usage
+Point your Gradle build at a running instance of this server by adding the following to its `settings.gradle`:
 
     buildCache {
         remote(HttpBuildCache) {
