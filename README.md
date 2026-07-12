@@ -29,20 +29,13 @@ Option for this mode:
 ## How to run
     $ java -jar http-cache-server-0.0.1.jar
     
-## Open source usage
-For building open source project using gradle, a free cache server is available to use.
-Add the following in your `settings.gradle`:
-    
+## Usage
+Point your Gradle build at a running instance of this server by adding the following to your `settings.gradle`:
+
     buildCache {
         remote(HttpBuildCache) {
-            url = "https://cache1.winar.to:32500/"
+            url = "https://your-cache-server.example.com:32500/"
             enabled = true
             push = true
         }
-    } 
-
-Note: the cache server above is using in-memory mode with replication.
-It is also configured to evict entries using LRU to avoid running out of memory.
-It is however having a quite big heap allocated to it.
-It also provide no guarantee of the cache to be available all the time.
-Should you need a persisted mode and uptime guarantee dedicated to your project, please contact for pricing.
+    }
